@@ -1,48 +1,35 @@
-package q2.form_template_method1.refactored;
+package q1.extract_method.refactored;
+
+import java.util.List;
 
 public class A {
-   public static void main(String[] args) {
-      System.out.println("After");
-      System.out.println("m1:" + (new A().m1(0, 3)));
-      System.out.println("m2:" + (new A().m2(0, 3)));
+   Node m1(List<Node> nodes, String p) {
+      ex(nodes, p);
+      return null;
    }
 
-   int m1(int min, int max) {
-      return new M1().common(min, max);
+   Edge m2(List<Edge> edgeList, String p) {
+      ex(edgeList, p);
+      return null;
    }
-
-   int m2(int min, int max) {
-      return new M2().common(min, max);
-   }
+   
+   <T extends Graph> void ex(List<T> list, String p) {
+		for (T obj : list) {
+			if (obj.contains(p))
+				System.out.println(obj);
+		}
+	}
 }
 
-abstract class Template {
-   int common(int min, int max) {
-      int sum = 0;
-      
-      for (int i = min; i <= max; i++) {
-    	  sum += apply(i);
-      }
-      return sum;
-   }
-
-   abstract int apply(int i);
+class Graph {
+	String name;
+	boolean contains(String p) {
+		return name.contains(p);
+	}
 }
 
-class M1 extends Template {
-
-   @Override
-   int apply(int i) {
-      
-      return i;
-   }
+class Node extends Graph {
 }
 
-class M2 extends Template {
-
-   @Override
-   int apply(int i) {
-      
-      return  i*i;
-   }
+class Edge extends Graph {
 }
